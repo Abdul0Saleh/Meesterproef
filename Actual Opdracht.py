@@ -1,6 +1,6 @@
-from lingowords import words
+from Functions import *
 
-import random
+from lingowords import *
 
 # The game (the code) randomly selects a word from the word list for the player to guess.
 # The game displays the first letter of the word.
@@ -11,6 +11,55 @@ import random
 # If a red ball is grabbed on the first attempt, the team is not allowed to grab a second time.
 # At the end of the game, the players are asked if they want to play again.
 
-def get_random_word():
-    return random.choice(words)
+# 5 attempts to guess word
 
+while True:
+
+    Secret_Word = get_random_word()
+    secret_letters = list(Secret_Word)
+
+    for i in range(5):
+
+        print("Attempt", i + 1)
+        print("guess:", Secret_Word[0], "_ _ _ _")
+
+        guess = input("Enter your guess: ")
+
+        if len(guess) != 5:
+            print("Word must be 5 letters.")
+            continue
+
+        guess_letters = list(guess)
+
+        if guess == Secret_Word:
+            print("Congratulations! You guessed the word.")
+            break
+        elif guess != Secret_Word and i >= 4:
+            print("Sorry, you've used all attempts. The word was:", Secret_Word)
+        
+        else:
+            print("Wrong guess. Try again.")
+
+            remaining_letters = secret_letters.copy()
+            result = [""] * 5
+
+            for j in range(5):
+                if guess_letters[j] == secret_letters[j]:
+                    result[j] = "green"
+                    remaining_letters[j] = None
+
+            for j in range(5):
+                if result[j] == "":
+                    if guess_letters[j] in remaining_letters:
+                        result[j] = "yellow"
+                        remaining_letters[remaining_letters.index(guess_letters[j])] = None
+                    else:
+                        result[j] = "gray"
+
+            for j in range(5):
+                if result[j] == "green":
+                    print(guess_letters[j], "is in the correct position.")
+                elif result[j] == "yellow":
+                    print(guess_letters[j], "is in the word but in the wrong position.")
+                else:
+                    print(guess_letters[j], "is not in the word.")

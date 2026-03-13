@@ -479,3 +479,7 @@ words = [
 	"zever",
 	"zeeen"
 ]
+
+red_balls = 3
+
+green_balls = 3
