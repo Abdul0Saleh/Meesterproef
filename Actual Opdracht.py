@@ -25,16 +25,20 @@ while True:
         print("Attempt", i + 1)
         print("guess:", Secret_Word[0], "_ _ _ _")
 
-        guess = input("Enter your guess: ")
 
-        if len(guess) != 5:
-            print("Word must be 5 letters.")
-            continue
+        while True:
+            guess = input("Enter your guess: ")
+
+            if len(guess) != 5:
+                print("Word must be 5 letters.")
+            else:
+                break
 
         guess_letters = list(guess)
 
         if guess == Secret_Word:
             print("Congratulations! You guessed the word.")
+            guessed = True
             break
         elif guess != Secret_Word and i >= 4:
             print("Sorry, you've used all attempts. The word was:", Secret_Word)
@@ -66,4 +70,17 @@ while True:
                     print(colored(guess_letters[j], 'yellow'), end=" ")
                 else:
                     print(colored(guess_letters[j], 'red'), end=" ")
+
+
+
+
+    while True:
+        play_again = input("Do you want to play again? (yes/no): ").strip().lower()
+        if play_again == "yes":
+            break
+        elif play_again == "no":
+            print("Goodbye!")
+            exit()
+        else:
+            print("Please enter 'yes' or 'no'.")
 
