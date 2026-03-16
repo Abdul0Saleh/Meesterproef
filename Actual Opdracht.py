@@ -2,6 +2,8 @@ from Functions import *
 
 from lingowords import *
 
+from termcolor import colored
+
 # The game (the code) randomly selects a word from the word list for the player to guess.
 # The game displays the first letter of the word.
 # A team has 5 attempts to guess the word.
@@ -57,9 +59,11 @@ while True:
                         result[j] = "gray"
 
             for j in range(5):
+
                 if result[j] == "green":
-                    print(guess_letters[j], "is in the correct position.")
+                    print(colored(guess_letters[j], 'green'), end=" ")
                 elif result[j] == "yellow":
-                    print(guess_letters[j], "is in the word but in the wrong position.")
+                    print(colored(guess_letters[j], 'yellow'), end=" ")
                 else:
-                    print(guess_letters[j], "is not in the word.")
+                    print(colored(guess_letters[j], 'red'), end=" ")
+
