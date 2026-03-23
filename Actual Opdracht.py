@@ -71,6 +71,9 @@ while True:
                 else:
                     print(colored(guess_letters[j], 'red'), end=" ")
 
+            
+    if guessed:
+        print("You can grab a ball from the ball pit!")
 
 
 
