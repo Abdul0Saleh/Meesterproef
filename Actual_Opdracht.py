@@ -25,7 +25,6 @@ while True:
         print("Attempt", i + 1)
         print("guess:", Secret_Word[0], "_ _ _ _")
 
-
         while True:
             guess = input("Enter your guess: ")
 
