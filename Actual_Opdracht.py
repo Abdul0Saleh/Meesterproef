@@ -1,6 +1,5 @@
 from Functions import *
 
-from Functions import guess_word
 from lingowords import *
 
 from termcolor import colored
@@ -17,45 +16,60 @@ from termcolor import colored
 # 5 attempts to guess word
 
 while True:
+
     Secret_Word = get_random_word()
     secret_letters = list(Secret_Word)
 
-    guess, guess_letters = guess_word()
+    for i in range(5):
 
-    if guess == Secret_Word:
-        print("Congratulations! You guessed the word.")
-        guessed = True
-        break
-    elif guess != Secret_Word and i >= 4:
-        print("Sorry, you've used all attempts. The word was:", Secret_Word)
-    
-    else:
-        print("Wrong guess. Try again.")
+        print("Attempt", i + 1)
+        print("guess:", Secret_Word[0], "_ _ _ _")
 
-        remaining_letters = secret_letters.copy()
-        result = [""] * 5
 
-        for j in range(5):
-            if guess_letters[j] == secret_letters[j]:
-                result[j] = "green"
-                remaining_letters[j] = None
+        while True:
+            guess = input("Enter your guess: ")
 
-        for j in range(5):
-            if result[j] == "":
-                if guess_letters[j] in remaining_letters:
-                    result[j] = "yellow"
-                    remaining_letters[remaining_letters.index(guess_letters[j])] = None
-                else:
-                    result[j] = "gray"
-
-        for j in range(5):
-
-            if result[j] == "green":
-                print(colored(guess_letters[j], 'green'), end=" ")
-            elif result[j] == "yellow":
-                print(colored(guess_letters[j], 'yellow'), end=" ")
+            if len(guess) != 5:
+                print("Word must be 5 letters.")
             else:
-                print(colored(guess_letters[j], 'red'), end=" ")
+                break
+
+        guess_letters = list(guess)
+
+        if guess == Secret_Word:
+            print("Congratulations! You guessed the word.")
+            guessed = True
+            break
+        elif guess != Secret_Word and i >= 4:
+            print("Sorry, you've used all attempts. The word was:", Secret_Word)
+        
+        else:
+            print("Wrong guess. Try again.")
+
+            remaining_letters = secret_letters.copy()
+            result = [""] * 5
+
+            for j in range(5):
+                if guess_letters[j] == secret_letters[j]:
+                    result[j] = "green"
+                    remaining_letters[j] = None
+
+            for j in range(5):
+                if result[j] == "":
+                    if guess_letters[j] in remaining_letters:
+                        result[j] = "yellow"
+                        remaining_letters[remaining_letters.index(guess_letters[j])] = None
+                    else:
+                        result[j] = "gray"
+
+            for j in range(5):
+
+                if result[j] == "green":
+                    print(colored(guess_letters[j], 'green'), end=" ")
+                elif result[j] == "yellow":
+                    print(colored(guess_letters[j], 'yellow'), end=" ")
+                else:
+                    print(colored(guess_letters[j], 'red'), end=" ")
 
             
     if guessed:
