@@ -19,6 +19,7 @@ while True:
 
     Secret_Word = get_random_word()
     secret_letters = list(Secret_Word)
+    print(Secret_Word)
 
     for i in range(5):
 
