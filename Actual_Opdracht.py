@@ -74,6 +74,8 @@ while True:
             
     if guessed:
         print("You can grab a ball from the ball pit!")
+    else:
+        print("boo")
 
 
 
@@ -87,3 +89,4 @@ while True:
         else:
             print("Please enter 'yes' or 'no'.")
 
+    
