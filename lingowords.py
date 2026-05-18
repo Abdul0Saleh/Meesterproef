@@ -3,18 +3,18 @@ words = [
 "ample","aroma","attic","audio","audit","avail","balmy","beast","being","berry",
 "blade","blast","blaze","blend","bloom","boast","bonus","booth","brake","brass",
 "brave","bride","brake","camel","calm","candy","chalk","charm","cheat","cheer",
-"chess","chill","cliff","climb","crispy","crisp","cocoa","damp","dare","dark",
-"dawn","drift","drill","drift","drift","drape","dread","drift","drain","dreamy",
-"dream","drone","dried","drink","drunk","elbow","elite","empty","enemy","entry",
-"event","evoke","fable","faint","fairy","false","feast","fever","fiber","fibre",
-"flame","flank","flask","flesh","flock","flour","fluid","flush","forge","frame",
-"frank","fresh","fried","front","fruit","glare","glide","globe","grace","grain",
-"grant","grasp","grind","groan","grove","guard","guest","guide","habit","harsh",
-"haste","haunt","hazel","heart","hedge","honey","honor","house","humor","hurry",
-"ideal","image","inner","issue","jelly","joker","jolly","judge","knack","kneel",
-"knife","laden","lance","latch","laugh","layer","learn","lemon","light","liver",
-"lobby","logic","lunar","lunch","mango","march","marsh","medal","merry","metal",
-"might","miner","model","moral","music","naval","noble","noisy","north","novel"
+"chess","chill","cliff","climb","crisp","cocoa","drift","drill","drift","drift",
+"drape","dread","drift","drain","dream","drone","dried","drink","drunk","elbow",
+"elite","empty","enemy","entry","event","evoke","fable","faint","fairy","false",
+"feast","fever","fiber","fibre","flame","flank","flask","flesh","flock","flour",
+"fluid","flush","forge","frame","frank","fresh","fried","front","fruit","glare",
+"glide","globe","grace","grain","grant","grasp","grind","groan","grove","guard",
+"guest","guide","habit","harsh","haste","haunt","hazel","heart","hedge","honey",
+"honor","house","humor","hurry","ideal","image","inner","issue","jelly","joker",
+"jolly","judge","knack","kneel","knife","laden","lance","latch","laugh","layer",
+"learn","lemon","light","liver","lobby","logic","lunar","lunch","mango","march",
+"marsh","medal","merry","metal","might","miner","model","moral","music","naval",
+"noble","noisy","north","novel"
 ]
 
 red_balls = 3

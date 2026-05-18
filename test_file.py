@@ -15,8 +15,19 @@ from termcolor import colored
 
 # 5 attempts to guess word
 
-guessed = False
+
+
+
+
+
+
+
 while True:
+
+
+    guessed = False
+
+
     Secret_Word = get_random_word()
     secret_letters = list(Secret_Word)
     print(f"secret word: {Secret_Word}")
@@ -42,7 +53,7 @@ while True:
             break
         elif guess != Secret_Word and i >= 4:
             print("Sorry, you've used all attempts. The word was:", Secret_Word)
-
+        
         else:
             print("Wrong guess. Try again.")
 
@@ -71,11 +82,10 @@ while True:
                 else:
                     print(colored(guess_letters[j], 'red'), end=" ")
 
-
+            
     if guessed:
-        print("You may grab a ball from the ball pit!")
-    else:
-        print("you may not grab a ball from the ball pit.")
+        grab_ball_function()
 
 
-    play_again()
+    if ask_play_again:
+        play_again()
