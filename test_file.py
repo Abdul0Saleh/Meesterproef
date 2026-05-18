@@ -16,12 +16,6 @@ from termcolor import colored
 # 5 attempts to guess word
 
 
-
-
-
-
-
-
 while True:
 
 
@@ -30,6 +24,7 @@ while True:
 
     Secret_Word = get_random_word()
     secret_letters = list(Secret_Word)
+    
     print(f"secret word: {Secret_Word}")
 
     for i in range(5):
@@ -84,8 +79,14 @@ while True:
 
             
     if guessed:
-        grab_ball_function()
+        result = grab_ball_function()
 
+        if result == "win":
+            print("Game Over - You Win!")
+            if not play_again():
+                break
 
-    if ask_play_again:
-        play_again()
+        elif result == "lose":
+            print("Game Over - You Lose!")
+            if not play_again():
+                break
