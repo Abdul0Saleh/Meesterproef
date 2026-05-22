@@ -12,7 +12,7 @@ def grab_ball_function():
             red_balls_grabbed += 1
 
             if red_balls_grabbed == 3:
-                print("❌ You grabbed 3 red balls! YOU LOSE.")
+                print(" You grabbed 3 red balls! YOU LOSE.")
                 return "lose"
 
             break
@@ -23,7 +23,7 @@ def grab_ball_function():
             green_balls_grabbed += 1
 
             if green_balls_grabbed == 3:
-                print("🎉 You grabbed 3 green balls! YOU WIN!")
+                print(" You grabbed 3 green balls! YOU WIN!")
                 return "win"
 
         else:
@@ -33,7 +33,7 @@ def grab_ball_function():
                 bingo = input("Did you get bingo? (yes/no): ").lower()
 
                 if bingo == "yes":
-                    print("🎉 Bingo! YOU WIN!")
+                    print(" Bingo! YOU WIN!")
                     return "win"
 
                 elif bingo == "no":
