@@ -1,4 +1,5 @@
 from lingowords import words
+from bingo import check_bingo_card
 
 import random
 
@@ -49,7 +50,7 @@ def play_again():
              
 
 
-def grab_ball_function():
+def grab_ball_function(bingo_card, marked_numbers):
     global red_balls_grabbed, green_balls_grabbed, ball_pit
     
     for i in range(2):
@@ -85,17 +86,10 @@ def grab_ball_function():
                 print(f"first ball: {random_ball}. you may grab another ball!")
             else:
                 print(f"second ball: {random_ball}.")
-            while True:
-                bingo = input("Did you get bingo? (yes/no): ").lower()
-
-                if bingo == "yes":
-                    print("Bingo! Congrats!")
-                    return "win"
-
-                elif bingo == "no":
-                    break
-
-                else:
-                    print("Please type yes or no.")
+            
+            marked_numbers, is_bingo = check_bingo_card(bingo_card, random_ball, marked_numbers)
+            if is_bingo:
+                print("BINGO! You win!")
+                return "win"
                     
     return "continue"
