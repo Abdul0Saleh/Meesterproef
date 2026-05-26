@@ -2,12 +2,10 @@ def check_bingo_card(bingo_card, pulled_number, marked_numbers):
     # Convert pulled number to int once
     number = int(pulled_number)
 
-    # Put the card into a grid (4 rows)
     grid = []
     for row in bingo_card:
         grid.append(row)
 
-    # Check if number is on the card
     found = False
     for row in grid:
         for value in row:

@@ -2,6 +2,24 @@ from random import randint
 from termcolor import colored
 
 
+def generate_bingo_card():
+    number_list = []
+
+    while len(number_list) < 16:
+        number = randint(1, 16)
+        if number not in number_list:
+            number_list.append(number)
+
+
+    row_1 = number_list[0:4]
+    row_2 = number_list[4:8]
+    row_3 = number_list[8:12]
+    row_4 = number_list[12:16]
+
+    return row_1, row_2, row_3, row_4
+
+
+
 def check_bingo_card(bingo_card, pulled_number, marked_numbers):
     number = int(pulled_number)
 

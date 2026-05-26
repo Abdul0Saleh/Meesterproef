@@ -2,6 +2,8 @@ from Functions import *
 
 from lingowords import *
 
+from bingo import generate_bingo_card
+
 from termcolor import colored
 
 # The game (the code) randomly selects a word from the word list for the player to guess.
@@ -15,13 +17,23 @@ from termcolor import colored
 
 # 5 attempts to guess word
 
-guessed = False
+
 while True:
+
+    bingo_card = generate_bingo_card()
+    marked_numbers = set()
+
+    guessed = False
+
+
     Secret_Word = get_random_word()
     secret_letters = list(Secret_Word)
+    
     print(f"secret word: {Secret_Word}")
 
     for i in range(5):
+
+        
 
         print("Attempt", i + 1)
         print("guess:", Secret_Word[0], "_ _ _ _")
@@ -42,7 +54,7 @@ while True:
             break
         elif guess != Secret_Word and i >= 4:
             print("Sorry, you've used all attempts. The word was:", Secret_Word)
-
+        
         else:
             print("Wrong guess. Try again.")
 
@@ -71,11 +83,18 @@ while True:
                 else:
                     print(colored(guess_letters[j], 'red'), end=" ")
 
-
+            
     if guessed:
-        print("You may grab a ball from the ball pit!")
-    else:
-        print("you may not grab a ball from the ball pit.")
+        result = grab_ball_function(bingo_card, marked_numbers)
+
+        if result == "win":
+            print("Game Over - You Win!")
+            if not play_again():
+                break
+
+        elif result == "lose":
+            print("Game Over - You Lose!")
+            if not play_again():
+                break
 
 
-    play_again()
