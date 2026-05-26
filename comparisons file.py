@@ -1,101 +1,79 @@
-from lingowords import words
+def check_bingo_card(bingo_card, pulled_number, marked_numbers):
+    # Convert pulled number to int once
+    number = int(pulled_number)
 
-import random
+    # Put the card into a grid (4 rows)
+    grid = []
+    for row in bingo_card:
+        grid.append(row)
 
-correct_words_in_a_row = 0
+    # Check if number is on the card
+    found = False
+    for row in grid:
+        for value in row:
+            if value == number:
+                found = True
 
-failed_words_in_a_row = 0
+    if found == False:
+        print("Number", pulled_number, "not found in your bingo card.")
+        return marked_numbers, False
 
-green_balls_grabbed = 0
+    # Mark the number
+    marked_numbers.add(number)
+    print("Number", pulled_number, "marked!")
 
-red_balls_grabbed = 0
+    # -------------------
+    # Check rows
+    # -------------------
+    row_index = 0
+    for row in grid:
+        row_index = row_index + 1
+        row_complete = True
 
-ask_play_again = False
+        for value in row:
+            if value not in marked_numbers:
+                row_complete = False
 
-ball_pit = ["red_ball", "red_ball", "red_ball", "green_ball", "green_ball", "green_ball",
-            "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"]
+        if row_complete == True:
+            print("BINGO! Complete row", row_index)
+            return marked_numbers, True
 
+    # -------------------
+    # Check columns
+    # -------------------
+    for col in range(4):
+        column_complete = True
 
-# from Actual_Opdracht import *
-def get_random_word():
+        for row in range(4):
+            if grid[row][col] not in marked_numbers:
+                column_complete = False
 
-    return random.choice(words)
+        if column_complete == True:
+            print("BINGO! Complete column", col + 1)
+            return marked_numbers, True
 
-def reset_game():
-    global green_balls_grabbed, red_balls_grabbed, ask_play_again, ball_pit
+    # -------------------
+    # Check diagonal top-left -> bottom-right
+    # -------------------
+    diagonal1_complete = True
+    for i in range(4):
+        if grid[i][i] not in marked_numbers:
+            diagonal1_complete = False
 
-    green_balls_grabbed = 0
-    red_balls_grabbed = 0
+    if diagonal1_complete == True:
+        print("BINGO! Diagonal (top-left to bottom-right)")
+        return marked_numbers, True
 
-    ball_pit = ["red_ball", "red_ball", "red_ball", "green_ball", "green_ball", "green_ball",
-                "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"]
+    # -------------------
+    # Check diagonal top-right -> bottom-left
+    # -------------------
+    diagonal2_complete = True
+    for i in range(4):
+        if grid[i][3 - i] not in marked_numbers:
+            diagonal2_complete = False
 
+    if diagonal2_complete == True:
+        print("BINGO! Diagonal (top-right to bottom-left)")
+        return marked_numbers, True
 
-
-def play_again():    
-    while True:
-        play_again = input("Do you want to play again? (yes/no): ").strip().lower()
-
-        if play_again == "yes":
-            reset_game()
-            return True
-
-        elif play_again == "no":
-            print("Goodbye!")
-            return False
-
-        else:
-            print("Please enter 'yes' or 'no'.")
-             
-
-
-def grab_ball_function():
-    global red_balls_grabbed, green_balls_grabbed, ball_pit
-    
-    for i in range(2):
-        random_ball = random.choice(ball_pit)
-        ball_pit.remove(random_ball)
-        
-        if random_ball == "red_ball":
-            if i == 0:
-                print("red ball!")
-            else:
-                print("second ball: red ball!")
-            red_balls_grabbed += 1
-            print(f"red ball amount {red_balls_grabbed}")
-            if red_balls_grabbed == 3:
-                print("You grabbed 3 red balls! Game over.")
-                return "lose"
- 
-            break
-        elif random_ball == "green_ball":
-            if i == 0:  
-                print("first ball: green ball! you may grab another ball.")
-            else:
-                print("second ball: green ball!")
-            green_balls_grabbed += 1
-            print(f"green ball amount {green_balls_grabbed}")
-            if green_balls_grabbed == 3:
-                print("You grabbed 3 green balls! You win!")
-                return "win"
-                
-            
-        else:
-            if i == 0:
-                print(f"first ball: {random_ball}. you may grab another ball!")
-            else:
-                print(f"second ball: {random_ball}.")
-            while True:
-                bingo = input("Did you get bingo? (yes/no): ").lower()
-
-                if bingo == "yes":
-                    print("Bingo! Congrats!")
-                    return "win"
-
-                elif bingo == "no":
-                    break
-
-                else:
-                    print("Please type yes or no.")
-                    
-    return "continue"
+    return marked_numbers, False
