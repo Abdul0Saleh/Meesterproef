@@ -1,95 +1,127 @@
 from lingowords import words
-from bingo import check_bingo_card
-
+from random import randint
+from bingo_display import flash_number, set_active_team
 import random
 
-correct_words_in_a_row = 0
-
-failed_words_in_a_row = 0
-
-green_balls_grabbed = 0
-
-red_balls_grabbed = 0
-
-ask_play_again = False
+green_balls_grabbed_team1 = 0
+red_balls_grabbed_team1 = 0
+green_balls_grabbed_team2 = 0
+red_balls_grabbed_team2 = 0
 
 ball_pit = ["red_ball", "red_ball", "red_ball", "green_ball", "green_ball", "green_ball",
             "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"]
 
 
-# from Actual_Opdracht import *
 def get_random_word():
-
     return random.choice(words)
 
-def reset_game():
-    global green_balls_grabbed, red_balls_grabbed, ask_play_again, ball_pit
 
-    green_balls_grabbed = 0
-    red_balls_grabbed = 0
+def reset_game():
+    global green_balls_grabbed_team1, red_balls_grabbed_team1
+    global green_balls_grabbed_team2, red_balls_grabbed_team2, ball_pit
+
+    green_balls_grabbed_team1 = 0
+    red_balls_grabbed_team1 = 0
+    green_balls_grabbed_team2 = 0
+    red_balls_grabbed_team2 = 0
 
     ball_pit = ["red_ball", "red_ball", "red_ball", "green_ball", "green_ball", "green_ball",
                 "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"]
 
 
-
-def play_again():    
+def play_again():
     while True:
-        play_again = input("Do you want to play again? (yes/no): ").strip().lower()
-
-        if play_again == "yes":
+        answer = input("Do you want to play again? (yes/no): ").strip().lower()
+        if answer == "yes":
             reset_game()
             return True
-
-        elif play_again == "no":
+        elif answer == "no":
             print("Goodbye!")
             return False
-
         else:
             print("Please enter 'yes' or 'no'.")
-             
 
 
-def grab_ball_function(bingo_card, marked_numbers):
-    global red_balls_grabbed, green_balls_grabbed, ball_pit
-    
+def generate_bingo_card():
+    number_list = []
+    while len(number_list) < 16:
+        number = randint(1, 64)
+        if number not in number_list:
+            number_list.append(number)
+
+    row_1 = number_list[0:4]
+    row_2 = number_list[4:8]
+    row_3 = number_list[8:12]
+    row_4 = number_list[12:16]
+
+    return row_1, row_2, row_3, row_4
+
+
+def grab_ball_function(team_number):
+    global red_balls_grabbed_team1, green_balls_grabbed_team1
+    global red_balls_grabbed_team2, green_balls_grabbed_team2, ball_pit
+
+    if team_number == 1:
+        red_balls_grabbed  = red_balls_grabbed_team1
+        green_balls_grabbed = green_balls_grabbed_team1
+    else:
+        red_balls_grabbed  = red_balls_grabbed_team2
+        green_balls_grabbed = green_balls_grabbed_team2
+
     for i in range(2):
+        if not ball_pit:
+            ball_pit.extend(["red_ball", "red_ball", "red_ball", "green_ball", "green_ball", "green_ball",
+                              "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"])
+
         random_ball = random.choice(ball_pit)
         ball_pit.remove(random_ball)
-        
+
         if random_ball == "red_ball":
-            if i == 0:
-                print("red ball!")
-            else:
-                print("second ball: red ball!")
+            label = "first" if i == 0 else "second"
+            print(f"{label} ball: RED BALL!")
             red_balls_grabbed += 1
-            print(f"red ball amount {red_balls_grabbed}")
+
+            if team_number == 1:
+                red_balls_grabbed_team1 = red_balls_grabbed
+            else:
+                red_balls_grabbed_team2 = red_balls_grabbed
+
+            print(f"Team {team_number} red balls: {red_balls_grabbed}")
+
             if red_balls_grabbed == 3:
-                print("You grabbed 3 red balls! Game over.")
+                print(f"Team {team_number} grabbed 3 red balls! They lose!")
                 return "lose"
- 
-            break
-        elif random_ball == "green_ball":
-            if i == 0:  
-                print("first ball: green ball! you may grab another ball.")
-            else:
-                print("second ball: green ball!")
-            green_balls_grabbed += 1
-            print(f"green ball amount {green_balls_grabbed}")
-            if green_balls_grabbed == 3:
-                print("You grabbed 3 green balls! You win!")
-                return "win"
-                
-            
-        else:
+
             if i == 0:
-                print(f"first ball: {random_ball}. you may grab another ball!")
+                print("Red ball on first grab — no second grab allowed.")
+            break
+
+        elif random_ball == "green_ball":
+            label = "first" if i == 0 else "second"
+            print(f"{label} ball: GREEN BALL!")
+            green_balls_grabbed += 1
+
+            if team_number == 1:
+                green_balls_grabbed_team1 = green_balls_grabbed
             else:
-                print(f"second ball: {random_ball}.")
-            
-            marked_numbers, is_bingo = check_bingo_card(bingo_card, random_ball, marked_numbers)
-            if is_bingo:
-                print("BINGO! You win!")
+                green_balls_grabbed_team2 = green_balls_grabbed
+
+            print(f"Team {team_number} green balls: {green_balls_grabbed}")
+
+            if green_balls_grabbed == 3:
+                print(f"Team {team_number} grabbed 3 green balls! They win!")
                 return "win"
-                    
+
+            if i == 0:
+                print("Green ball — you may grab a second ball!")
+
+        else:
+            label = "first" if i == 0 else "second"
+            print(f"{label} ball: number {random_ball}!")
+            print(f"Mark number {random_ball} if you have it on your card!")
+            flash_number(random_ball)
+
+            if i == 0:
+                print("Number ball — you may grab a second ball!")
+
     return "continue"
