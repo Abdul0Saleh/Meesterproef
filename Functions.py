@@ -28,6 +28,8 @@ def reset_game():
     ball_pit = ["red_ball", "red_ball", "red_ball", "green_ball", "green_ball", "green_ball",
                 "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"]
 
+# use as initializer^^^
+
 
 def play_again():
     while True:
@@ -40,6 +42,8 @@ def play_again():
             return False
         else:
             print("Please enter 'yes' or 'no'.")
+
+# try except ^
 
 
 def generate_bingo_card():
@@ -55,7 +59,7 @@ def generate_bingo_card():
     row_4 = number_list[12:16]
 
     return row_1, row_2, row_3, row_4
-
+# ^array ipv seperate variables
 
 def grab_ball_function(team_number):
     global red_balls_grabbed_team1, green_balls_grabbed_team1

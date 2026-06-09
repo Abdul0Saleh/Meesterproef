@@ -1,4 +1,4 @@
-from Functions import *
+from functions import *
 from lingowords import *
 from termcolor import colored
 from bingo_display import start_bingo_window, update_cards, set_active_team, stop_bingo_window
